@@ -1,18 +1,20 @@
 import { compose, pipe} from 'lodash/fp'
 
 let input = "   javascript    ";
-let output = "div" + input.trim() + "</div>";
+let output = "<div>" + input.trim() + "</div>";
 
 const trim = (str) => str.trim();
-const wrap = (type) => (str) => `<${type}>${str}</${type}>`
 const toLowerCase = str => str.toLowerCase();
+// curryig function
+const wrap = (type) => (str) => `<${type}>${str}</${type}>`
 
-const transform = pipe(trim, wrap('span'), toLowerCase)
-
-
+// contoh without pipe, nested function
 // const result = wrapInDiv(toLowerCase(trim(input)));
 
+const transform = pipe(trim,  toLowerCase ,wrap('div'))
 console.log(transform(input))
+
+document.querySelector('.coba').innerHTML = output;
 
 // TODO: EXAMPLA OF COMPOSE 
 // const compose = (g,f)=> x => g(f(x));
@@ -39,13 +41,13 @@ const person = {
 }
 //METHOD UPDATE OBJEK 
 // ARGUMEN PERTAMA OBJEK KOSONG TEMPAT UNTUK MENGCOPY SEMUA OBJEK YG ADA PADA ARGUMEN KE DUA
-// ARGUMEN KETIGA PADA OBJECT ASSING ADALAH UPDATE DATA DARI OBJEK PERTAMA YG SUDAH DI KOPI
+// ARGUMEN KETIGA PADA OBJECT ASSIGN ADALAH UPDATE DATA
 const updated = Object.assign({},person,{nama:'adit', umur: 24})
 
 //SPREAD OPERATOR 
 const updateData = {
     ...person,
-     nama:'tania',
+    nama:'tania',
     address: {
     ...person.address,
     city: 'Tangerang Selatan'
